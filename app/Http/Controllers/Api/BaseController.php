@@ -1,4 +1,4 @@
-<!-- <?php
+<?php
 
 namespace App\Http\Controllers\Api;
 
@@ -22,4 +22,4 @@ class BaseController extends Controller
             'message' => $message,
         ], $code);
     }
-} -->
+}

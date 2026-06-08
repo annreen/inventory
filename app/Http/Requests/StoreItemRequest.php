@@ -8,7 +8,20 @@ class StoreItemRequest extends FormRequest
 {
     public function authorize(): bool
     {
-        return true; // Ubah menjadi true agar request diizinkan
+        return true;
+    }
+
+    protected function prepareForValidation()
+    {
+        $input = $this->all();
+
+        array_walk($input, function (&$val) {
+            if (is_string($val)) {
+                $val = trim(strip_tags($val));
+            }
+        });
+
+        $this->merge($input);
     }
 
     public function rules(): array
