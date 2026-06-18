@@ -2,10 +2,24 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Http\Request;
 use App\Http\Controllers\Api\BaseController;
 use App\Http\Requests\StoreItemRequest;
 use App\Http\Requests\UpdateItemRequest;
 use App\Services\ItemService;
+
+public function index(Request $request)
+{
+    $items = $this->svc
+        ->all()
+        ->filter(fn($item) =>
+            !$request->category_id ||
+            $item->category_id == $request->category_id
+        )
+        ->values();
+
+    return $this->success($items);
+}
 
 class ItemController extends BaseController
 {
