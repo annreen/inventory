@@ -246,3 +246,6 @@ Accept: application/json
 ```
 Keterangan: admin only.
 Response 204 No Content.
+
+### GET /items?category_id={id}
+Description: Filter items by category, optional.
