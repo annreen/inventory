@@ -8,19 +8,6 @@ use App\Http\Requests\StoreItemRequest;
 use App\Http\Requests\UpdateItemRequest;
 use App\Services\ItemService;
 
-public function index(Request $request)
-{
-    $items = $this->svc
-        ->all()
-        ->filter(fn($item) =>
-            !$request->category_id ||
-            $item->category_id == $request->category_id
-        )
-        ->values();
-
-    return $this->success($items);
-}
-
 class ItemController extends BaseController
 {
     protected ItemService $svc;
@@ -30,10 +17,18 @@ class ItemController extends BaseController
         $this->svc = $svc;
     }
 
-    public function index()
+    public function index(Request $request)
     {
+        $items = $this->svc
+            ->all()
+            ->filter(fn($item) =>
+                !$request->category_id ||
+                $item->category_id == $request->category_id
+            )
+            ->values();
+
         return $this->success(
-            $this->svc->all(),
+            $items,
             'Data item berhasil ditampilkan'
         );
     }
